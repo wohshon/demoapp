@@ -4,7 +4,7 @@ var ip = require("ip");
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-   res.render('index.html', { title: 'Hello Demo!', content: 'Containerized nodejs application', ipaddr: 'served from: '+ip.address() });
+   res.render('index.html', { title: 'Hello Demo!!!', content: 'Containerized nodejs application', ipaddr: 'served from: '+ip.address() });
 });
 
 module.exports = router;
