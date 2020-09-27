@@ -1,4 +1,6 @@
-FROM node:12
+ FROM node:12
+# FROM registry.redhat.io/ubi8/nodejs-12
+# need to login to registry.redhat.io
 
 # Create app directory
 WORKDIR /usr/src/app

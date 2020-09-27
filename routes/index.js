@@ -8,9 +8,16 @@ router.get('/', function(req, res, next) {
 });
 
 router.get('/hello/:msg', function(req, res, next) {
+   console.log("GET Method");
    var result = {};
-   result["msg"] = req.params.msg;
+   result["msg"] = process.env.GREET || 'Hello '+ req.params.msg;
    res.send(result);
 });
 
+router.post('/hello', function(req, res, next) {
+   console.log("POST Method");
+   var result = {};
+   result["msg"] = process.env.GREET || 'Hello '+ req.body.msg;
+   res.send(result);
+});
 module.exports = router;
