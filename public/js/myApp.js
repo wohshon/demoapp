@@ -1,4 +1,9 @@
 myApp = {
+    eventHandler:function(event) {
+        //console.log(Object.keys(event));
+        console.log((event.target.id));
+
+    },
     sendToken: function(token) {
         //console.log("got token "+token);
         //sending to backend first

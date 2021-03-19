@@ -4,38 +4,28 @@ var ip = require("ip");
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-   res.render('index.html', { title: 'Hello World!', content: 'reCaptcha v3 testing', ipaddr: 'served from: '+ip.address() });
+   res.render('index.html', { title: 'Homepage', content: 'reCaptcha v3 testing', ipaddr: 'served from: '+ip.address(), subContent: " There is a homepage action generated onload." });
 });
 
-router.get('/hello/:msg', function(req, res, next) {
-   console.log("GET Method");
-   var result = {};
-   var greet = process.env.GREET|| 'Hello';
-   result["msg"] = greet+', '+req.params.msg;
-   res.send(result);
-});
+router.get('/goto',function(req,res){
+    console.log(req.query.page);
+    let page = req.query.page;
+   res.render(page, { title: 'page:'+page, content: 'reCaptcha v3 testing', ipaddr: 'served from: '+ip.address()});
 
-router.post('/hello', function(req, res, next) {
-   console.log("POST Method ");
-   var result = {};
-   var greet = process.env.GREET|| 'Hello';
-   result["msg"] = greet+', '+req.body.msg;
-   res.send(result);
 });
-
 //recaptcha api
 
 router.post('/sendToken', async function(req, res, next){
     console.log("backend - send token "+req.body.token);
     let token = req.body.token;
-    let score = await send(token,res);
+    let score = await send(token);
     res.status(200).send(score);
 });
 
 const project_id =  process.env.GOOGLE_CLOUD_PROJECT || "no project id"
 const siteKey = process.env.SITE_KEY || " no site key "
 let assessmentResponse;
-async function send(token,res) {
+async function send(token) {
      const {
     RecaptchaEnterpriseServiceClient,
   } = require('@google-cloud/recaptcha-enterprise');
