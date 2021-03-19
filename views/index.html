@@ -14,31 +14,21 @@
     <!-- Bootstrap core CSS -->
 <link href="css/bootstrap.min.css" rel="stylesheet"  crossorigin="anonymous">
 
-
-    <style>
-      .bd-placeholder-img {
-        font-size: 1.125rem;
-        text-anchor: middle;
-        -webkit-user-select: none;
-        -moz-user-select: none;
-        -ms-user-select: none;
-        user-select: none;
-      }
-
-      @media (min-width: 768px) {
-        .bd-placeholder-img-lg {
-          font-size: 3.5rem;
-        }
-      }
-    </style>
     <!-- Custom styles for this template -->
     <link href="css/form-validation.css" rel="stylesheet">
+  <script src="https://www.google.com/recaptcha/enterprise.js?render=6Leu8IMaAAAAAFMhJ1xBqGB63EopViLsQ5KkNxzq"></script>
+  <script>
+  grecaptcha.enterprise.ready(function() {
+      grecaptcha.enterprise.execute('6Leu8IMaAAAAAFMhJ1xBqGB63EopViLsQ5KkNxzq', {action: 'homepage'}).then(function(token) {
+         console.log("got token ");
+         console.log(token);
+         //send to backend
+      });
+  });
+  </script>    
   </head>
   <body class="bg-light">
     <div class="container">
-  <div class="py-5 text-center">
-    <img class="d-block mx-auto mb-4" src="/docs/4.3/assets/brand/bootstrap-solid.svg" alt="" width="72" height="72">
-  </div>
 
   <div class="row">
     <div class="col-md-12 order-md-1">
@@ -50,7 +40,10 @@
     <div>
           <%=ipaddr%>
     </div>
-    </div>
+
+    <div id="score"></div>
+
+</div>
 
 
 
@@ -58,7 +51,20 @@
 </div>
 
 <script src="js/jquery-min.js" crossorigin="anonymous"></script>
-      <script>window.jQuery || document.write('<script src="js/jquery-.min.js"><\/script>')</script><script src="js/bootstrap.bundle.min.js"  crossorigin="anonymous"></script>
-        <script src="js/form-validation.js"></script></body>
+<script>window.jQuery || document.write('<script src="js/jquery-.min.js"><\/script>')</script><script src="js/bootstrap.bundle.min.js"  crossorigin="anonymous"></script>
+<script src="js/form-validation.js"></script>
+<script src="js/myApp.js"></script>
+<script src="https://www.google.com/recaptcha/enterprise.js?render=6Leu8IMaAAAAAFMhJ1xBqGB63EopViLsQ5KkNxzq"></script>
+<script>
+grecaptcha.enterprise.ready(function() {
+    grecaptcha.enterprise.execute('6Leu8IMaAAAAAFMhJ1xBqGB63EopViLsQ5KkNxzq', {action: 'homepage'}).then(function(token) {
+        console.log("got token ");
+        //console.log(token);
+        //send to backend
+        myApp.sendToken(token);
+    });
+});
+</script>    
+</body>
 </html>
 

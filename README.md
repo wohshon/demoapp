@@ -2,7 +2,16 @@
 
 - start service : `npm start`
 
+
+For Testing of recaptcha v3 / enterprise
+
+export GOOGLE_CLOUD_PROJECT=xxx
+export SITE_KEY=xxx
+export environmental credentials for your service account key
+
 #### Endpoints:
+
+The endpoints below still works but the main html page has been instrumented for testing or recaptcha
 
 - http://<host>:<port>/ 
   

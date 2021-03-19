@@ -4,7 +4,7 @@ var ip = require("ip");
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-   res.render('index.html', { title: 'Hello World!', content: 'Containerized nodejs application', ipaddr: 'served from: '+ip.address() });
+   res.render('index.html', { title: 'Hello World!', content: 'reCaptcha v3 testing', ipaddr: 'served from: '+ip.address() });
 });
 
 router.get('/hello/:msg', function(req, res, next) {
@@ -16,10 +16,55 @@ router.get('/hello/:msg', function(req, res, next) {
 });
 
 router.post('/hello', function(req, res, next) {
-   console.log("POST Method");
+   console.log("POST Method ");
    var result = {};
    var greet = process.env.GREET|| 'Hello';
    result["msg"] = greet+', '+req.body.msg;
    res.send(result);
 });
+
+//recaptcha api
+
+router.post('/sendToken', async function(req, res, next){
+    console.log("backend - send token "+req.body.token);
+    let token = req.body.token;
+    let score = await send(token,res);
+    res.status(200).send(score);
+});
+
+const project_id =  process.env.GOOGLE_CLOUD_PROJECT || "no project id"
+const siteKey = process.env.SITE_KEY || " no site key "
+let assessmentResponse;
+async function send(token,res) {
+     const {
+    RecaptchaEnterpriseServiceClient,
+  } = require('@google-cloud/recaptcha-enterprise');
+  const client = new RecaptchaEnterpriseServiceClient();
+   // format the path to the project (it should be prefaced with projects/).
+  const formattedParent = client.projectPath(project_id);
+  // assessment should contain event with RESPONSE_TOKEN and RECAPTCHA_SITE_KEY:
+  const assessment = {
+         event: {
+            token: token,
+            siteKey: siteKey
+        }
+  };
+
+  const request = {
+    parent: formattedParent,
+    assessment: assessment,
+  };
+
+    assessmentResponse = await client.createAssessment(request);
+    let score = await analyseAssessment();
+    return score;
+}
+
+async function analyseAssessment() {
+    resp = (assessmentResponse[0]);
+    console.log(resp)
+    let score = {score: resp.riskAnalysis.score, action: resp.tokenProperties.action };
+    console.log(score);
+    return score;
+}
 module.exports = router;
