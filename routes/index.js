@@ -11,9 +11,20 @@ router.get('/goto',function(req,res){
     console.log(req.query.page);
     let page = req.query.page;
    res.render(page, { title: 'page:'+page, content: 'reCaptcha v3 testing', ipaddr: 'served from: '+ip.address()});
+});
+
+router.post("/login", function(req, res){
+    console.log("==========login "+req.body.inputEmail);
+    res.render("page1.html", { title: 'Welcome, '+req.body.inputEmail, content: 'login success', ipaddr: 'served from: '+ip.address()});
+
+    //res.status(200).send("login ok");
 
 });
+
 //recaptcha api
+const project_id =  process.env.GOOGLE_CLOUD_PROJECT || "no project id"
+const siteKey = process.env.SITE_KEY || " no site key "
+let assessmentResponse;
 
 router.post('/sendToken', async function(req, res, next){
     console.log("backend - send token "+req.body.token);
@@ -22,9 +33,6 @@ router.post('/sendToken', async function(req, res, next){
     res.status(200).send(score);
 });
 
-const project_id =  process.env.GOOGLE_CLOUD_PROJECT || "no project id"
-const siteKey = process.env.SITE_KEY || " no site key "
-let assessmentResponse;
 async function send(token) {
      const {
     RecaptchaEnterpriseServiceClient,
