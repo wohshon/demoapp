@@ -28,7 +28,7 @@ const siteKey = process.env.SITE_KEY || " no site key "
 let assessmentResponse;
 
 router.post('/sendToken', async function(req, res, next){
-    console.log("backend - send token "+req.body.token);
+    //console.log("backend - send token "+req.body.token);
     let token = req.body.token;
     let score = await send(token);
     res.status(200).send(score);
