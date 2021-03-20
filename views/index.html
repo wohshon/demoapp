@@ -13,7 +13,7 @@
   <body class="bg-light text-center">
 
 <main class="form-signin">
-  <form id="form_login">
+  <form id="form_login" method="POST" action="/login">
     <h1 class="h3 mb-3 fw-normal">Please sign in</h1>
     <label for="inputEmail" class="visually-hidden">Email address</label>
     <input type="email" name="inputEmail" id="inputEmail" class="form-control" placeholder="Email address" required autofocus>
@@ -50,25 +50,23 @@
 $(function() {
     console.log( "ready!" );
     $('[id^=btn_]').on("click",myApp.eventHandler);
-
-    //myApp.
 });
 </script>
 <script>
 grecaptcha.enterprise.ready(function() {
     grecaptcha.enterprise.execute('6Leu8IMaAAAAAFMhJ1xBqGB63EopViLsQ5KkNxzq', {action: 'homepage'}).then(function(token) {
         console.log("got token ");
-        console.log(token);
+        //console.log(token);
         //send to backend
-        myApp.sendToken(token);
-        myApp.login();
+        myApp.sendToken(token, myApp.displayScore);
     });
 });
 </script>    
   <script>
    function onSubmit(token) {
        console.log("submit action "+token);
-        myApp.sendToken(token);
+       // myApp.sendToken(token);
+        myApp.login(token);
 
    }
  </script> 

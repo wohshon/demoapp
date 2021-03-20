@@ -14,26 +14,20 @@
   <div class="row">
     <div class="col-md-12 order-md-1">
 
-    <h1><%=title%></h1>
+        <h1><%=title%></h1>
   
-    <h3><%=content%></h3>
+        <h3><%=content%></h3>
  
-    <div>
-          <%=ipaddr%>
+        <div><%=ipaddr%></div>
+ 
+        <div id="score"></div>
     </div>
- 
-    <div id="score"></div>
-
+  </div>  
  <button id="btn_test" class="g-recaptcha" 
         data-sitekey="6Leu8IMaAAAAAFMhJ1xBqGB63EopViLsQ5KkNxzq" 
         data-callback='onSubmit' 
         data-action='test'>test button</button>   
         
-</div>
-
-
-
-
 </div>
 
 <script src="js/jquery-min.js" crossorigin="anonymous"></script>
@@ -55,7 +49,7 @@ grecaptcha.enterprise.ready(function() {
         console.log("got token ");
         console.log(token);
         //send to backend
-        myApp.sendToken(token);
+        myApp.sendToken(token, myApp.displayScore);
     });
 });
 </script>    

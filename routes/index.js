@@ -10,11 +10,12 @@ router.get('/', function(req, res, next) {
 router.get('/goto',function(req,res){
     console.log(req.query.page);
     let page = req.query.page;
-   res.render(page, { title: 'page:'+page, content: 'reCaptcha v3 testing', ipaddr: 'served from: '+ip.address()});
+    res.render(page, { title: 'page:'+page, content: 'reCaptcha v3 testing', ipaddr: 'served from: '+ip.address()});
 });
 
 router.post("/login", function(req, res){
     console.log("==========login "+req.body.inputEmail);
+    res.set('Content-Type', 'text/html');
     res.render("page1.html", { title: 'Welcome, '+req.body.inputEmail, content: 'login success', ipaddr: 'served from: '+ip.address()});
 
     //res.status(200).send("login ok");
