@@ -15,7 +15,7 @@ router.get('/goto',function(req,res){
 
 router.post("/login", function(req, res){
     console.log("==========login "+req.body.inputEmail);
-    res.set('Content-Type', 'text/html');
+    //res.set('Content-Type', 'text/html');
     res.render("page1.html", { title: 'Welcome, '+req.body.inputEmail, content: 'login success', ipaddr: 'served from: '+ip.address()});
 
     //res.status(200).send("login ok");
@@ -23,7 +23,7 @@ router.post("/login", function(req, res){
 });
 
 //recaptcha api
-const project_id =  process.env.GOOGLE_CLOUD_PROJECT || "no project id"
+const project_id =  process.env.DEVSHELL_PROJECT_ID || "no project id"
 const siteKey = process.env.SITE_KEY || " no site key "
 let assessmentResponse;
 
@@ -46,7 +46,7 @@ async function send(token) {
          event: {
             token: token,
             siteKey: siteKey
-        }
+        }        
   };
 
   const request = {
@@ -59,6 +59,7 @@ async function send(token) {
     return score;
 }
 
+//placeholder method to do the backend scoring analysis
 async function analyseAssessment() {
     resp = (assessmentResponse[0]);
     console.log(resp)

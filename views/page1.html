@@ -56,7 +56,7 @@ grecaptcha.enterprise.ready(function() {
   <script>
    function onSubmit(token) {
        console.log("submit action "+token);
-        myApp.sendToken(token);
+        myApp.sendToken(token, myApp.displayScore);
 
    }
  </script> 
